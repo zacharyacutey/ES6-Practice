@@ -32,76 +32,64 @@ class User {
     }
 }
 
-function createBoxesForUsers() {
+
+function createShapesForUsers() {
+
+    // set up default boxes and circles
+
     let userCount = prompt("How many users are playing? \nMin: 2\nMax: None");
     let spaceForBoxes = document.getElementById("spaceForBoxes");
 
-    var players = {};
-    var keysForPlayers = [];
-
-    var keysForCanvases = []
-
-
     for (i=1; i < parseInt(userCount) + 1; i++) {
-        keysForPlayers.push("player_" + i);
-        keysForCanvases.push("canvas_" + i);
-    }
+        players[i] = "player_" + i;
 
-    for (let i = 0; i < keysForPlayers.length; i++) {
-        canvasKey = keysForCanvases[i];
-        playersCanvas = document.getElementById(canvasKey); // Evaluates to Null <--- BUG!!
-        players[keysForPlayers[i]] = new User(50, playersCanvas);
+        spaceForBoxes.innerHTML = spaceForBoxes.innerHTML + "<div id=\"" + players[i] + "\"></div>"
 
-        spaceForBoxes.innerHTML = spaceForBoxes.innerHTML + "<div id=\"" + keysForPlayers[i] + "\"></div>";
-
-        let playerDiv = document.getElementById(keysForPlayers[i]);
+        let playerDiv = document.getElementById(players[i]);
 
         playerDiv.innerHTML = playerDiv.innerHTML + "<h3>Player " + i + "</h3>\n";
         playerDiv.innerHTML = playerDiv.innerHTML + "<canvas id=\"myCanvas_" + i + "\" width=\"1000\" height=\"100\"></canvas>";
 
-        players[keysForPlayers[i]].drawCircle("white");
+        eval("user_" + i + " = new User(50, document.getElementById(\"myCanvas_" + i + "\"));"); // global variables for Josh
+        eval("user_" + i + ".drawCircle(\"white\")");
+    }
+
+    // change color of circles
+
+    let willUserChangeColor = prompt("Do you want to change the circles' colors?  Y/N:").toLowerCase();
+
+    if (willUserChangeColor == "y") {
+        for (i=1; i < parseInt(userCount) + 1; i++) {
+            var circleColor = prompt("What color do you want circle " + i + " to be?");
+            // eval("user_" + i + ".drawCircle(circleColor);")
+            players[i].drawCircle(circleColor)
+        }
     }
 }
 
 function game() {
     let roundNum = 0;
 
-    let userOne = new User(50, document.getElementById("myCanvasOne"));
-    let userTwo = new User(50, document.getElementById("myCanvasTwo"));
-
-    userOne.drawCircle("white");
-    userTwo.drawCircle("white");
-
-    let willUserChangeColor = prompt("Do you want to change the circles' colors?  Y/N:").toLowerCase();
-
-    if (willUserChangeColor == "y") {
-        var firstCircleColor = prompt("What color do you want the first circle to be?");
-        userOne.drawCircle(firstCircleColor);
-
-        var secondCircleColor = prompt("What color do you want the second circle to be?");
-        userTwo.drawCircle(secondCircleColor);
-    }
-
-    while (userOne.win === false && userTwo.win === false) {
+    while (user_1.win === false && user_2.win === false) {
         let randomNumber = Math.floor((Math.random() * 2) + 1);
 
         if (roundNum % 2 === 0) {
-            userOne.trivia(randomNumber);
+            user_1.trivia(randomNumber);
         } else {
-            userTwo.trivia(randomNumber);
+            user_2.trivia(randomNumber);
         } 
 
         roundNum++;
     }
 
-    if (userOne.win) {
+    if (user_1.win) {
         alert("User One Wins!!!");
     }
 
-    if (userTwo.win) {
+    if (user_2.win) {
         alert("User Two Wins!!!");
     }
 }
 
-createBoxesForUsers();
+createShapesForUsers();
 game();
