@@ -32,6 +32,25 @@ class User {
     }
 }
 
+function createBoxesForUsers() {
+    let userCount = prompt("How many users are playing? \nMin: 2\nMax: None");
+    let spaceForBoxes = document.getElementById("spaceForBoxes");
+
+    for (i=1; i < parseInt(userCount) + 1; i++) {
+        let playerNum = "player_" + i;
+
+        spaceForBoxes.innerHTML = spaceForBoxes.innerHTML + "<div id=\"" + playerNum + "\"></div>"
+
+        let playerDiv = document.getElementById(playerNum); // Returns null
+
+        playerDiv.innerHTML = playerDiv.innerHTML + "<h3>Player " + i + "</h3>\n";
+        playerDiv.innerHTML = playerDiv.innerHTML + "<canvas id=\"myCanvas_" + i + "\" width=\"1000\" height=\"100\"></canvas>";
+    
+        eval("let user_" + i + " = new User(50, document.getElementById(\"myCanvas_" + i + "\"));");
+        eval("user_" + i + ".drawCircle(\"white\")");
+    }
+}
+
 function game() {
     let roundNum = 0;
 
@@ -72,4 +91,5 @@ function game() {
     }
 }
 
+createBoxesForUsers();
 game();
