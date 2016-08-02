@@ -6,10 +6,10 @@ class User {
         this.win = false;
     }
 
-    drawCircle() {
+    drawCircle(color) {
 	    this.ctx.beginPath();
 	    this.ctx.arc(this.distance, 50, 50, 0, 2 * Math.PI);
-	    this.ctx.fillStyle = "red";
+	    this.ctx.fillStyle = color;
 	    this.ctx.fill();
 	    this.ctx.stroke();
     }
@@ -38,9 +38,19 @@ function game() {
     let userOne = new User(50, document.getElementById("myCanvasOne"));
     let userTwo = new User(50, document.getElementById("myCanvasTwo"));
 
-    userOne.drawCircle();
-    userTwo.drawCircle();
-    
+    userOne.drawCircle("white");
+    userTwo.drawCircle("white");
+
+    let willUserChangeColor = prompt("Do you want to change the circles' colors?  Y/N:").toLowerCase();
+
+    if (willUserChangeColor == "y") {
+        var firstCircleColor = prompt("What color do you want the first circle to be?");
+        userOne.drawCircle(firstCircleColor);
+
+        var secondCircleColor = prompt("What color do you want the second circle to be?");
+        userTwo.drawCircle(secondCircleColor);
+    }
+
     while (userOne.win === false && userTwo.win === false) {
         let randomNumber = Math.floor((Math.random() * 2) + 1);
 
