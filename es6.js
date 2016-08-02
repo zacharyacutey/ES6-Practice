@@ -41,14 +41,14 @@ function createShapesForUsers() {
     let spaceForBoxes = document.getElementById("spaceForBoxes");
 
     for (i=1; i < parseInt(userCount) + 1; i++) {
-        players[i] = "player_" + i;
+        player = "player_" + i;
 
-        spaceForBoxes.innerHTML = spaceForBoxes.innerHTML + "<div id=\"" + players[i] + "\"></div>"
+        spaceForBoxes.innerHTML = spaceForBoxes.innerHTML + "<div id=\"" + player + "\"></div>";
 
-        let playerDiv = document.getElementById(players[i]);
+        eval("let playerDiv = document.getElementById(\"player_" + i + "\");");
 
-        playerDiv.innerHTML = playerDiv.innerHTML + "<h3>Player " + i + "</h3>\n";
-        playerDiv.innerHTML = playerDiv.innerHTML + "<canvas id=\"myCanvas_" + i + "\" width=\"1000\" height=\"100\"></canvas>";
+        eval("playerDiv.innerHTML = playerDiv.innerHTML + \"<h3>Player " + i + "</h3>;\"");
+        eval("playerDiv.innerHTML = playerDiv.innerHTML + \"<canvas id=\"myCanvas_" + i + "\" width=\"1000\" height=\"100\"></canvas>\";");
 
         eval("user_" + i + " = new User(50, document.getElementById(\"myCanvas_" + i + "\"));"); // global variables for Josh
         eval("user_" + i + ".drawCircle(\"white\")");
