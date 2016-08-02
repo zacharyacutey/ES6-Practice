@@ -47,8 +47,8 @@ function createShapesForUsers() {
 
         eval("let playerDiv = document.getElementById(\"player_" + i + "\");"); // playerDiv not defined?
 
-        eval("playerDiv.innerHTML = playerDiv.innerHTML + \"<h3>Player " + i + "</h3>;\"");
-        eval("playerDiv.innerHTML = playerDiv.innerHTML + \"<canvas id=\"myCanvas_" + i + "\" width=\"1000\" height=\"100\"></canvas>\";");
+        eval("document.getElementById(\"player_" + i + "\").innerHTML = document.getElementById(\"player_" + i + "\").innerHTML + \"<h3>Player " + i + "</h3>;\"");
+        eval("document.getElementById(\"player_" + i + "\").innerHTML = document.getElementById(\"player_" + i + "\").innerHTML + \"<canvas id='myCanvas_" + i + "' width='1000' height='100'></canvas>\";");
 
         eval("user_" + i + " = new User(50, document.getElementById(\"myCanvas_" + i + "\"));"); // global variables for Josh
         eval("user_" + i + ".drawCircle(\"white\")");
