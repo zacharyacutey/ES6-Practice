@@ -45,7 +45,7 @@ function createShapesForUsers() {
 
         spaceForBoxes.innerHTML = spaceForBoxes.innerHTML + "<div id=\"" + player + "\"></div>";
 
-        eval("let playerDiv = document.getElementById(\"player_" + i + "\");");
+        eval("let playerDiv = document.getElementById(\"player_" + i + "\");"); // playerDiv not defined?
 
         eval("playerDiv.innerHTML = playerDiv.innerHTML + \"<h3>Player " + i + "</h3>;\"");
         eval("playerDiv.innerHTML = playerDiv.innerHTML + \"<canvas id=\"myCanvas_" + i + "\" width=\"1000\" height=\"100\"></canvas>\";");
@@ -61,8 +61,7 @@ function createShapesForUsers() {
     if (willUserChangeColor == "y") {
         for (i=1; i < parseInt(userCount) + 1; i++) {
             var circleColor = prompt("What color do you want circle " + i + " to be?");
-            // eval("user_" + i + ".drawCircle(circleColor);")
-            players[i].drawCircle(circleColor)
+            eval("user_" + i + ".drawCircle(circleColor);")
         }
     }
 }
