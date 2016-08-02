@@ -36,18 +36,30 @@ function createBoxesForUsers() {
     let userCount = prompt("How many users are playing? \nMin: 2\nMax: None");
     let spaceForBoxes = document.getElementById("spaceForBoxes");
 
+    var players = {};
+    var keysForPlayers = [];
+
+    var keysForCanvases = []
+
+
     for (i=1; i < parseInt(userCount) + 1; i++) {
-        let playerNum = "player_" + i;
+        keysForPlayers.push("player_" + i);
+        keysForCanvases.push("canvas_" + i);
+    }
 
-        spaceForBoxes.innerHTML = spaceForBoxes.innerHTML + "<div id=\"" + playerNum + "\"></div>"
+    for (let i = 0; i < keysForPlayers.length; i++) {
+        canvasKey = keysForCanvases[i];
+        playersCanvas = document.getElementById(canvasKey); // Evaluates to Null <--- BUG!!
+        players[keysForPlayers[i]] = new User(50, playersCanvas);
 
-        let playerDiv = document.getElementById(playerNum); // Returns null
+        spaceForBoxes.innerHTML = spaceForBoxes.innerHTML + "<div id=\"" + keysForPlayers[i] + "\"></div>";
+
+        let playerDiv = document.getElementById(keysForPlayers[i]);
 
         playerDiv.innerHTML = playerDiv.innerHTML + "<h3>Player " + i + "</h3>\n";
         playerDiv.innerHTML = playerDiv.innerHTML + "<canvas id=\"myCanvas_" + i + "\" width=\"1000\" height=\"100\"></canvas>";
-    
-        eval("let user_" + i + " = new User(50, document.getElementById(\"myCanvas_" + i + "\"));");
-        eval("user_" + i + ".drawCircle(\"white\")");
+
+        players[keysForPlayers[i]].drawCircle("white");
     }
 }
 
