@@ -47,11 +47,13 @@ function createShapesForUsers() {
 
         eval("let playerDiv = document.getElementById(\"player_" + i + "\");"); // playerDiv not defined?
 
-        eval("document.getElementById(\"player_" + i + "\").innerHTML = document.getElementById(\"player_" + i + "\").innerHTML + \"<h3>Player " + i + "</h3>;\"");
-        eval("document.getElementById(\"player_" + i + "\").innerHTML = document.getElementById(\"player_" + i + "\").innerHTML + \"<canvas id='myCanvas_" + i + "' width='1000' height='100'></canvas>\";");
+        eval("document.getElementById(\"player_" + i + "\").innerHTML = document.getElementById(\"player_" + i + "\").innerHTML + \"<h3>Player " + i + "</h3>\"");
+        eval("document.getElementById(\"player_" + i + "\").innerHTML = document.getElementById(\"player_" + i + "\").innerHTML + \"<canvas id='myCanvas_" + i + "' width='1000' height='100'></canvas>\"");
 
         eval("user_" + i + " = new User(50, document.getElementById(\"myCanvas_" + i + "\"));"); // global variables for Josh
         eval("user_" + i + ".drawCircle(\"white\")");
+
+        eval("console.log('user_" + i + " has ' + user_" + i + ".distance)"); // for debug
     }
 
     // change color of circles
@@ -74,8 +76,10 @@ function game() {
 
         if (roundNum % 2 === 0) {
             user_1.trivia(randomNumber);
+            console.log("user_1 has " + user_1.distance); // for debug
         } else {
             user_2.trivia(randomNumber);
+            console.log("user_2 has " + user_1.distance); // for debug
         } 
 
         roundNum++;
